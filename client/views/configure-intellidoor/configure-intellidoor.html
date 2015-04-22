@@ -1,0 +1,50 @@
+<template name="ConfigureIntellidoor">
+    <div class="col s12">
+        <h2 class="header">Configure Intellidoor</h2>
+
+        <p class="caption">Add and remove doors, and configure who's got access to them.</p>
+
+        <table>
+            <thead>
+            <tr>
+                <th data-field="id-for-door">ID for door</th>
+                <th data-field="name-for-door">Name for door</th>
+                <th data-field="door-location">Door location</th>
+                <th data-field="door-users-with-access"># users with access</th>
+                <th data-field="price">Edit users with access</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                {{#each doors}}
+                <tr>
+                    <td>{{_id}}</td>
+                    <td>{{custom_name}}</td>
+                    <td>{{location}}</td>
+                    <td>{{usersWithAccess users_with_access}}</td>
+                    <td><a class="btn-floating btn-small waves-effect waves-light orange" href="/configure-intellidoor/{{_id}}/configure-users"><i class="mdi-editor-mode-edit"></i></a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <a class="btn-floating btn-medium waves-effect waves-light green modal-trigger" href="#modal-new-door"><i class="mdi-content-add"></i></a>
+    </div>
+
+    <div id="modal-new-door" class="modal">
+        <div class="modal-content">
+            <h4>Add new door</h4>
+            <div class="input-field col s6">
+                <input id="door-name" type="text" class="validate">
+                <label for="door-name">Door name</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="door-location" type="text" class="validate">
+                <label for="door-location">Door location</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+            <a href="#!" id="btn-add-row" class="modal-action modal-close waves-effect waves-green btn-flat">Create Door</a>
+        </div>
+    </div>
+</template>

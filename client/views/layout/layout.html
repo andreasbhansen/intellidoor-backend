@@ -1,0 +1,45 @@
+<template name="Layout">
+    <div class="hiddendiv common"></div>
+    <header>
+        <!--<div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full"><i class="mdi-navigation-menu"></i></a></div>-->
+
+        <ul id="nav-mobile" class="side-nav fixed" style="width: 240px;">
+            <li class="logo">
+                <!--<div id="logo-container" href="http://materializecss.com/" class="brand-logo">
+                    <object id="front-page-logo" type="image/svg+xml"
+                            data="http://materializecss.com/res/materialize.svg">Your browser does not support SVG
+                    </object>
+                </div>-->
+                <div id="logo-container" class="brand-logo">
+                    <img src="http://www.genetec.com/Images/EN/Blog/EN-Blog_Wireless-lock_SALTO-icon.png" alt="Logo" height="80"/>
+                </div>
+            </li>
+            <li class="bold"><a href="/" class="waves-effect waves-orange">Home</a></li>
+            {{#if currentUser}}
+                <li class="bold"><a href="/configure-intellidoor" class="waves-effect waves-orange">Configure Intellidoor</a></li>
+                <li class="bold"><a href="/dashboard" class="waves-effect waves-orange">Dashboard</a></li>
+                <li class="bold"><a href="/profile" class="waves-effect waves-orange">Profile</a></li>
+                <li class="bold"><a href="" id="logout" class="waves-effect waves-orange">Logout</a></li>
+            {{else}}
+                <li class="bold"><a href="/login" class="waves-effect waves-orange">Login</a></li>
+                <li class="bold"><a href="/register" class="waves-effect waves-orange">Register</a></li>
+            {{/if}}
+
+        </ul>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    {{> yield}}
+                </div>
+            </div>
+        </div>
+    </main>
+    <!--    <footer class="page-footer">
+            <div class="container white-text">
+                Boilerplate App for Meteor.js using AccountsTemplates :-)
+            </div>
+        </footer>-->
+    <!--<div class="drag-target" style="left: 0px; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div>-->
+</template>
