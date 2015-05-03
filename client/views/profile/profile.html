@@ -1,6 +1,18 @@
 <template name="Profile">
     <div class="col s12">
         <h2 class="header">Your Profile</h2>
+
         <p class="caption">The most intelligent door you have ever seen. Probably better than the status quo.</p>
+
+        {{#with userUUID}}
+            <div class="input-field col s6">
+                <input id="userUUID" type="text" class="validate" value="{{UUID}}">
+                <label for="userUUID">Your device UUID (beacon UUID)</label>
+            </div>
+            <br/>
+            <button class="btn waves-effect waves-light" type="submit" id="btn-save-profile">Save UUID
+                <i class="mdi-content-send right"></i>
+            </button>
+        {{/with}}
     </div>
 </template>

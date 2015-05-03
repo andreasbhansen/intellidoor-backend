@@ -1,45 +1,89 @@
 <template name="ConfigureIntellidoorUsers">
     <div class="col s12">
         {{#with door_info}}
-            <h2 class="header">Configure users for door @{{custom_name}}</h2>
+            <h2 class="header">Configure door <span class="orange-text">@{{custom_name}}</span></h2>
 
             <p class="caption">Add and remove users with access to this door.</p>
 
             <table>
                 <thead>
                 <tr>
-                    <th data-field="email">Email</th>
+                    <th data-field="email">Email for user</th>
                     <th data-field="has-access">Has access</th>
-                    <th data-field="edit-user">Edit user</th>
+                    <th data-field="is-home">Is home</th>
+                    <th data-field="edit-user">Edit user email</th>
+                    <th data-field="delete-user">Delete user</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 {{#each users_with_access}}
                     <tr>
-                        <td>{{email}}</td>
-                        <!--<td>{{has_access}}</td>-->
-                        <td> <div class="switch">
-                            <label>
-                                Off
-                                {{#if has_access}} <input class="user-has-access" type="checkbox" checked> {{else}} <input class="user-has-access" type="checkbox"> {{/if}}
-                                <span class="lever"></span>
-                                On
-                            </label>
-                        </div></td>
-                        <td><a class="btn-floating btn-small waves-effect waves-light orange" href="/configure-intellidoor/{{user_id}}/configure-users"><i class="mdi-editor-mode-edit"></i></a></td>
+                        <td>{{email}} {{#if pending_access}} (pending){{/if}}</td>
+                        <td>
+                            <div class="switch">
+                                <label>
+                                    Off
+                                    {{#if got_access}} <input class="user-has-access" type="checkbox" checked> {{else}}
+                                        <input class="user-has-access" type="checkbox"> {{/if}}
+                                    <span class="lever"></span>
+                                    On
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="switch">
+                                <label>
+                                    Off
+                                    {{#if is_home}} <input class="is-user-at-home" type="checkbox" checked> {{else}}
+                                        <input class="is-user-at-home" type="checkbox"> {{/if}}
+                                    <span class="lever"></span>
+                                    On
+                                </label>
+                            </div>
+                        </td>
+                        <td><a class="btn-floating btn-small waves-effect waves-light orange"
+                               href="/configure-intellidoor/{{email}}/configure-users"><i
+                                class="mdi-editor-mode-edit"></i></a></td>
+                        <td><a class="btn-floating btn-small waves-effect waves-light red modal-trigger" href="#modal-remove-user"><i
+                                class="mdi-action-delete"></i></a></td>
                     </tr>
                 {{/each}}
                 </tbody>
             </table>
-            <a class="btn-floating btn-medium waves-effect waves-light green modal-trigger" href="#modal-new-user"><i class="mdi-content-add"></i></a>
+            <a class="btn-floating btn-medium waves-effect waves-light green modal-trigger" href="#modal-new-user"><i
+                    class="mdi-content-add"></i></a>
+<!--
+            <table>
+                <thead>
+                <tr>
+                    <th data-field="owner">Owner</th>
+                    <th data-field="tokens">Active</th>
+                    <th data-field="active">Token</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {{#each GCM_tokens}}
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>{{this}}</td>
+
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+            <a class="btn-floating btn-medium waves-effect waves-light green modal-trigger" href="#modal-new-token"><i
+                    class="mdi-content-add"></i></a>-->
         {{/with}}
     </div>
 
-
+    <!-- User related modals -->
     <div id="modal-new-user" class="modal">
         <div class="modal-content">
             <h4>Add new user to access door</h4>
+
             <div class="input-field col s6">
                 <input id="new-user-email" type="text" class="validate">
                 <label for="new-user-email">User email</label>
@@ -47,7 +91,37 @@
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
-            <a href="#!" id="btn-add-user" class="modal-action modal-close waves-effect waves-green btn-flat">Add User</a>
+            <a href="#!" id="btn-add-user" class="modal-action modal-close waves-effect waves-green btn-flat">Add
+                User</a>
+        </div>
+    </div>
+
+    <div id="modal-remove-user" class="modal">
+        <div class="modal-content">
+            <h4>Add new user to access door</h4>
+            <p>Remove user</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+            <a href="#!" id="btn-remove-user" class="modal-action modal-close waves-effect waves-green btn-flat">Remove
+                User</a>
+        </div>
+    </div>
+
+    <!-- Token related modals -->
+    <div id="modal-new-token" class="modal">
+        <div class="modal-content">
+            <h4>Add new token to get notifications for this door</h4>
+
+            <div class="input-field col s6">
+                <input id="new-token" type="text" class="validate">
+                <label for="new-token">GCM Token</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+            <a href="#!" id="btn-add-token" class="modal-action modal-close waves-effect waves-green btn-flat">Add
+                Token</a>
         </div>
     </div>
 </template>

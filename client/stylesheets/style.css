@@ -28,3 +28,7 @@ navbar.htmlmedia="screen, projection"
     color: #ee6e73;
     font-weight: 300;
 }
+
+.toast-alert {
+    background-color: red;
+}

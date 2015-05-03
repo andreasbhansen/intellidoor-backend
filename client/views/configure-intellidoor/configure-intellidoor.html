@@ -10,29 +10,39 @@
                 <th data-field="id-for-door">ID for door</th>
                 <th data-field="name-for-door">Name for door</th>
                 <th data-field="door-location">Door location</th>
-                <th data-field="door-users-with-access"># users with access</th>
+                <th data-field="door-users-with-access"># users</th>
                 <th data-field="price">Edit users with access</th>
             </tr>
             </thead>
 
             <tbody>
-                {{#each doors}}
+            {{#each doors}}
                 <tr>
                     <td>{{_id}}</td>
                     <td>{{custom_name}}</td>
                     <td>{{location}}</td>
-                    <td>{{usersWithAccess users_with_access}}</td>
-                    <td><a class="btn-floating btn-small waves-effect waves-light orange" href="/configure-intellidoor/{{_id}}/configure-users"><i class="mdi-editor-mode-edit"></i></a></td>
+                    {{#if isUserDoorOwner users_with_access}}
+                        <td>{{usersWithAccess users_with_access}} <i>({{usersPendingAccess users_with_access}} pending
+                            approval)</i></td>
+                        <td><a class="btn-floating btn-small waves-effect waves-light orange"
+                               href="/configure-intellidoor/{{_id}}/configure-users"><i
+                                class="mdi-editor-mode-edit"></i></a></td>
+                    {{else}}
+                        <td>-</td>
+                        <td>-</td>
+                    {{/if}}
                 </tr>
-                {{/each}}
+            {{/each}}
             </tbody>
         </table>
-        <a class="btn-floating btn-medium waves-effect waves-light green modal-trigger" href="#modal-new-door"><i class="mdi-content-add"></i></a>
+        <a class="btn-floating btn-medium waves-effect waves-light green modal-trigger" href="#modal-new-door"><i
+                class="mdi-content-add"></i></a>
     </div>
 
     <div id="modal-new-door" class="modal">
         <div class="modal-content">
             <h4>Add new door</h4>
+
             <div class="input-field col s6">
                 <input id="door-name" type="text" class="validate">
                 <label for="door-name">Door name</label>
@@ -44,7 +54,8 @@
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
-            <a href="#!" id="btn-add-row" class="modal-action modal-close waves-effect waves-green btn-flat">Create Door</a>
+            <a href="#!" id="btn-add-row" class="modal-action modal-close waves-effect waves-green btn-flat">Create
+                Door</a>
         </div>
     </div>
 </template>
