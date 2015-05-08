@@ -1,4 +1,4 @@
-# -
+# Intellidoor - Backend
 > By Ole Vedeler, Magnus Viermyr & Andreas Biørn-Hansen for MA230 Interactive Technologies
 #### #1. Install Meteor
 Download and install Meteor (requires OS X):
@@ -25,4 +25,4 @@ http://localhost:3000/
 ````
 
 #### #5. Play around
-* You can [create a new account](http://localhost:3000/login) or [log in](http://localhost:3000/login)
+...
